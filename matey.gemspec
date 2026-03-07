@@ -5,22 +5,23 @@ Gem::Specification.new do |spec|
   spec.version     = Matey::VERSION
   spec.authors     = [ "leopolicastro" ]
   spec.email       = [ "43428385+leopolicastro@users.noreply.github.com" ]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of Matey."
-  spec.description = "TODO: Description of Matey."
+  spec.homepage    = "https://github.com/leopolicastro/matey"
+  spec.summary     = "Analytics dashboard engine for Rails apps using Ahoy"
+  spec.description = "A beautiful analytics dashboard UI for Rails apps already using ahoy_matey for tracking. Matey reads your existing Ahoy data and presents it in a modern dashboard with charts, tables, and filters."
   spec.license     = "MIT"
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = "https://github.com/leopolicastro/matey"
+  spec.metadata["changelog_uri"] = "https://github.com/leopolicastro/matey/blob/main/CHANGELOG.md"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
   spec.add_dependency "rails", ">= 8.1.2"
+  spec.add_dependency "ahoy_matey", ">= 4"
+  spec.add_dependency "pagy", ">= 6"
+  spec.add_dependency "groupdate", ">= 6"
+  spec.add_dependency "importmap-rails"
+  spec.add_dependency "stimulus-rails"
 end

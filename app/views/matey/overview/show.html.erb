@@ -1,0 +1,34 @@
+<div class="space-y-8">
+  <!-- Stats -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <%= render "matey/shared/stat_card", title: "Total Visits", value: @total_visits %>
+    <%= render "matey/shared/stat_card", title: "Unique Visitors", value: @unique_visitors %>
+    <%= render "matey/shared/stat_card", title: "Total Events", value: @total_events %>
+  </div>
+
+  <!-- Daily Visits Chart -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="text-sm font-semibold text-gray-900 mb-4">Visits Over Time</h3>
+    <div class="h-64">
+      <canvas
+        data-controller="chart"
+        data-chart-type-value="line"
+        data-chart-labels-value="<%= @daily_visits.keys.map { |d| d.strftime("%b %d") }.to_json %>"
+        data-chart-data-value="<%= @daily_visits.values.to_json %>"
+        data-chart-label-value="Visits"
+      ></canvas>
+    </div>
+  </div>
+
+  <!-- Two Column Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <%= render "matey/shared/data_table", title: "Top Pages", label: "Page", count_label: "Views", data: @top_pages %>
+    <%= render "matey/shared/data_table", title: "Top Referrers", label: "Referrer", count_label: "Visits", data: @top_referrers %>
+    <%= render "matey/shared/data_table", title: "Browsers", label: "Browser", count_label: "Visits", data: @browsers %>
+    <%= render "matey/shared/data_table", title: "Devices", label: "Device", count_label: "Visits", data: @devices %>
+    <%= render "matey/shared/data_table", title: "Operating Systems", label: "OS", count_label: "Visits", data: @os %>
+    <%= render "matey/shared/data_table", title: "Countries", label: "Country", count_label: "Visits", data: @countries %>
+    <%= render "matey/shared/data_table", title: "Top Events", label: "Event", count_label: "Count", data: @top_events %>
+    <%= render "matey/shared/data_table", title: "Campaigns", label: "Source", count_label: "Visits", data: @campaigns %>
+  </div>
+</div>
