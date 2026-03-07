@@ -1,4 +1,7 @@
 require "matey/version"
+require "ahoy_matey"
+require "pagy"
+require "groupdate"
 require "matey/engine"
 
 module Matey

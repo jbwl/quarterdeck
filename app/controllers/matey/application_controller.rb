@@ -1,10 +1,9 @@
 module Matey
   class ApplicationController < ActionController::Base
-    include Pagy::Backend
+    include Pagy::Method
 
     before_action :authenticate_matey!
 
-    helper Pagy::Frontend
     helper_method :period, :period_range
 
     private

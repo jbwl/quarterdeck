@@ -19,7 +19,7 @@ module Matey
         .order(Arel.sql("count(*) DESC"))
         .count
 
-      @pagy, @events = pagy(scope, limit: 25)
+      @pagy, @events = pagy(:offset, scope, limit: 25)
     end
   end
 end

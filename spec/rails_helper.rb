@@ -1,10 +1,13 @@
 require "spec_helper"
 
-ENV["RAILS_ENV"] ||= "test"
+ENV["RAILS_ENV"] = "test"
 
-require File.expand_path("../test/dummy/config/environment", __dir__) if File.exist?(File.expand_path("../test/dummy/config/environment", __dir__))
+require_relative "dummy/config/environment"
 
 require "rspec/rails"
+
+ActiveRecord::Schema.verbose = false
+load File.expand_path("dummy/db/schema.rb", __dir__)
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true

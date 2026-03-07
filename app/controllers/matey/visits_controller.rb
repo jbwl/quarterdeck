@@ -19,7 +19,7 @@ module Matey
         scope = scope.where.not(utm_source: [ nil, "" ])
       end
 
-      @pagy, @visits = pagy(scope, limit: 25)
+      @pagy, @visits = pagy(:offset, scope, limit: 25)
 
       @browsers = visits_in_period.where.not(browser: [ nil, "" ]).distinct.pluck(:browser).sort
       @devices = visits_in_period.where.not(device_type: [ nil, "" ]).distinct.pluck(:device_type).sort

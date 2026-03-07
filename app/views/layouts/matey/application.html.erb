@@ -6,7 +6,7 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <script src="https://cdn.tailwindcss.com"></script>
-  <%= javascript_importmap_tags %>
+  <%= javascript_importmap_tags if respond_to?(:javascript_importmap_tags) %>
 </head>
 <body class="h-full">
   <div class="min-h-full">
