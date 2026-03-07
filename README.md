@@ -1,8 +1,15 @@
 # Quarterdeck
 
+[![Certified Shovelware](https://justin.searls.co/img/shovelware.svg)](https://justin.searls.co/shovelware/)
+
+
 A beautiful analytics dashboard engine for Rails apps already using [ahoy_matey](https://github.com/ankane/ahoy) for tracking. Quarterdeck reads your existing Ahoy data and presents it in a modern dashboard with charts, tables, and filters.
 
 No database migrations needed — Quarterdeck reads directly from your `ahoy_visits` and `ahoy_events` tables.
+
+![Quarterdeck Overview](docs/screenshots/overview.png)
+
+[See more screenshots](docs/SCREENSHOTS.md)
 
 ## Features
 
@@ -90,4 +97,3 @@ bundle exec rspec
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 
-[![Certified Shovelware](https://justin.searls.co/img/shovelware.svg)](https://justin.searls.co/shovelware/)
