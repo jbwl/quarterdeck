@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Matey::Engine => "/analytics"
+  mount Quarterdeck::Engine => "/analytics"
 end

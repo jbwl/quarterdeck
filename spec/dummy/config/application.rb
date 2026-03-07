@@ -2,7 +2,7 @@ require_relative "boot"
 require "rails/all"
 
 Bundler.require(*Rails.groups)
-require "matey"
+require "quarterdeck"
 
 module Dummy
   class Application < Rails::Application

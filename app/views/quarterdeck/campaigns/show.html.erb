@@ -1,0 +1,35 @@
+<div class="space-y-6">
+  <!-- Stats -->
+  <div class="flex items-center justify-between mb-2">
+    <div></div>
+    <%= link_to "Export CSV", url_for(request.query_parameters.merge(format: :csv)),
+      class: "text-xs text-indigo-600 hover:text-indigo-800 font-medium" %>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+    <%= render "quarterdeck/shared/stat_card", title: "Total Campaign Visits", value: @total_campaign_visits %>
+  </div>
+
+  <!-- UTM Breakdowns -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <%= render "quarterdeck/shared/data_table", title: "Sources", label: "UTM Source", count_label: "Visits", data: @sources %>
+    <%= render "quarterdeck/shared/data_table", title: "Mediums", label: "UTM Medium", count_label: "Visits", data: @mediums %>
+    <%= render "quarterdeck/shared/data_table", title: "Campaigns", label: "UTM Campaign", count_label: "Visits", data: @campaigns %>
+    <%= render "quarterdeck/shared/data_table", title: "Terms", label: "UTM Term", count_label: "Visits", data: @terms %>
+    <%= render "quarterdeck/shared/data_table", title: "Content", label: "UTM Content", count_label: "Visits", data: @contents %>
+  </div>
+
+  <!-- Source Chart -->
+  <% if @sources.any? %>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <h3 class="text-sm font-semibold text-gray-900 mb-4">Top Sources</h3>
+      <div class="h-64">
+        <canvas
+          data-controller="chart"
+          data-chart-type-value="doughnut"
+          data-chart-labels-value="<%= @sources.keys.first(8).to_json %>"
+          data-chart-data-value="<%= @sources.values.first(8).to_json %>"
+        ></canvas>
+      </div>
+    </div>
+  <% end %>
+</div>

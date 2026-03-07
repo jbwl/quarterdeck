@@ -1,8 +1,8 @@
-# Matey
+# Quarterdeck
 
-A beautiful analytics dashboard engine for Rails apps already using [ahoy_matey](https://github.com/ankane/ahoy) for tracking. Matey reads your existing Ahoy data and presents it in a modern dashboard with charts, tables, and filters.
+A beautiful analytics dashboard engine for Rails apps already using [ahoy_matey](https://github.com/ankane/ahoy) for tracking. Quarterdeck reads your existing Ahoy data and presents it in a modern dashboard with charts, tables, and filters.
 
-No database migrations needed — Matey reads directly from your `ahoy_visits` and `ahoy_events` tables.
+No database migrations needed — Quarterdeck reads directly from your `ahoy_visits` and `ahoy_events` tables.
 
 ## Features
 
@@ -24,34 +24,34 @@ Built with Tailwind CSS, Chart.js, and Stimulus.
 Add to your Gemfile:
 
 ```ruby
-gem "matey"
+gem "quarterdeck"
 ```
 
 Run the install generator:
 
 ```bash
 bundle install
-rails generate matey:install
+rails generate quarterdeck:install
 ```
 
 This will:
-1. Create `config/initializers/matey.rb`
+1. Create `config/initializers/quarterdeck.rb`
 2. Mount the engine at `/analytics` in your routes
 
 Or set up manually:
 
 ```ruby
 # config/routes.rb
-mount Matey::Engine => "/analytics"
+mount Quarterdeck::Engine => "/analytics"
 ```
 
 ## Configuration
 
 ```ruby
-# config/initializers/matey.rb
+# config/initializers/quarterdeck.rb
 
 # Require authentication
-Matey.authenticate_with do
+Quarterdeck.authenticate_with do
   redirect_to main_app.root_path unless current_user&.admin?
 end
 ```

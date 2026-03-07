@@ -1,0 +1,31 @@
+<%
+  periods = [
+    { label: "Today", value: "today" },
+    { label: "7 days", value: "7d" },
+    { label: "30 days", value: "30d" },
+    { label: "90 days", value: "90d" }
+  ]
+  custom_active = period == "custom"
+%>
+<div class="flex flex-wrap items-center gap-1 mb-6" data-controller="date-range">
+  <% periods.each do |p| %>
+    <% active = period == p[:value] %>
+    <%= link_to p[:label],
+      url_for(request.query_parameters.merge(period: p[:value]).except("start_date", "end_date")),
+      class: "px-3 py-1.5 text-xs font-medium rounded-md transition #{active ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'}" %>
+  <% end %>
+
+  <span class="px-3 py-1.5 text-xs font-medium rounded-md transition cursor-default <%= custom_active ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 border border-gray-200' %>">Custom</span>
+
+  <input type="date"
+    data-date-range-target="startDate"
+    data-action="change->date-range#submit"
+    value="<%= params[:start_date] %>"
+    class="px-2 py-1 text-xs rounded-md border border-gray-200 text-gray-700 focus:border-indigo-500 focus:ring-indigo-500">
+  <span class="text-xs text-gray-400">to</span>
+  <input type="date"
+    data-date-range-target="endDate"
+    data-action="change->date-range#submit"
+    value="<%= params[:end_date] %>"
+    class="px-2 py-1 text-xs rounded-md border border-gray-200 text-gray-700 focus:border-indigo-500 focus:ring-indigo-500">
+</div>
