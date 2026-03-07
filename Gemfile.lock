@@ -2,13 +2,10 @@ PATH
   remote: .
   specs:
     quarterdeck (0.1.0)
-      ahoy_matey (>= 4)
       csv
       groupdate (>= 6)
-      importmap-rails
       pagy (>= 6)
       rails (>= 8.1.2)
-      stimulus-rails
 
 GEM
   remote: https://rubygems.org/
@@ -276,10 +273,13 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  ahoy_matey
+  importmap-rails
   puma
   quarterdeck!
   rspec-rails
   sqlite3
+  stimulus-rails
 
 CHECKSUMS
   action_text-trix (2.1.16) sha256=f645a2c21821b8449fd1d6770708f4031c91a2eedf9ef476e9be93c64e703a8a

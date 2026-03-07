@@ -11,13 +11,21 @@ No database migrations needed — Quarterdeck reads directly from your `ahoy_vis
 - **Events** — Event breakdown with daily chart, filtering by event name
 - **Campaigns** — UTM breakdowns (source, medium, campaign, term, content) with charts
 - **Geographic** — Country, region, and city breakdowns with charts
+- **Live** — Real-time active visitors, current pages, and live event stream
+- **Trend comparisons** — Stat cards show % change vs previous period
+- **Custom date ranges** — Pick arbitrary start/end dates alongside preset periods
+- **CSV export** — Download data from any page
 
 Built with Tailwind CSS, Chart.js, and Stimulus.
 
 ## Requirements
 
-- Rails 8.1+
-- [ahoy_matey](https://github.com/ankane/ahoy) 4+ (already installed and configured in your app)
+Your Rails app must have the following set up before installing Quarterdeck:
+
+- **Rails 8.1+**
+- **[ahoy_matey](https://github.com/ankane/ahoy) 4+** — already installed and tracking visits/events
+- **[importmap-rails](https://github.com/rails/importmap-rails)** — for JavaScript module loading
+- **[stimulus-rails](https://github.com/hotwired/stimulus-rails)** — for interactive UI components
 
 ## Installation
 
@@ -66,8 +74,9 @@ end
 | `/analytics/events` | Event breakdown |
 | `/analytics/campaigns` | UTM campaign analysis |
 | `/analytics/geographic` | Geographic breakdown |
+| `/analytics/live` | Real-time active visitors |
 
-All pages support period filtering: Today, 7 days, 30 days, 90 days.
+All pages support period filtering: Today, 7 days, 30 days, 90 days, or a custom date range.
 
 ## Development
 
@@ -82,4 +91,3 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 
 [![Certified Shovelware](https://justin.searls.co/img/shovelware.svg)](https://justin.searls.co/shovelware/)
-

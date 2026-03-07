@@ -19,10 +19,7 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "rails", ">= 8.1.2"
-  spec.add_dependency "ahoy_matey", ">= 4"
   spec.add_dependency "pagy", ">= 6"
   spec.add_dependency "groupdate", ">= 6"
-  spec.add_dependency "importmap-rails"
-  spec.add_dependency "stimulus-rails"
   spec.add_dependency "csv"
 end
