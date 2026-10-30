@@ -17,14 +17,14 @@
 
   <body class="header-layout">
     <header id="header">
-      <div class="container qcz-stack">
-        <h1 class="font-bold text-2xl">Quarterdeck</h1>
-        <%= render "quarterdeck/css_zero/shared/nav" %>
+      <div class="flex items-center gap container">
+        <%= render "quarterdeck/css_zero/shared/mobile_menu" %>
+        <%= render "quarterdeck/css_zero/shared/header_menu" %>
       </div>
     </header>
 
     <main id="main">
-      <div class="container qcz-stack">
+      <div class="container flex flex-col gap">
         <%= render "quarterdeck/css_zero/shared/period_tabs" %>
         <%= yield %>
       </div>

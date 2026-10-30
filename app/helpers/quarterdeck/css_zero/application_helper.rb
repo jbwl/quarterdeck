@@ -15,5 +15,18 @@ module Quarterdeck::CssZero
         **html_options
       )
     end
+
+    # The dashboard's sections, shared by the desktop header menu and the
+    # mobile sheet menu. Marks the current section active.
+    def quarterdeck_sections
+      [
+        { name: "Overview",   path: quarterdeck_css_zero.root_path,      controller: "overview" },
+        { name: "Visits",     path: quarterdeck_css_zero.visits_path,    controller: "visits" },
+        { name: "Events",     path: quarterdeck_css_zero.events_path,    controller: "events" },
+        { name: "Campaigns",  path: quarterdeck_css_zero.campaigns_path, controller: "campaigns" },
+        { name: "Geographic", path: quarterdeck_css_zero.geographic_path, controller: "geographics" },
+        { name: "Live",       path: quarterdeck_css_zero.live_path,      controller: "live" }
+      ].map { |section| section.merge(active: controller_name == section[:controller]) }
+    end
   end
 end

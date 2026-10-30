@@ -22,7 +22,7 @@ RSpec.describe "Quarterdeck self-contained layout", type: :request do
     expect(response).to have_http_status(:ok)
     expect(response.body).to include("css-zero/reset")
     expect(response.body).to include("css-zero/variables")
-    expect(response.body).to include("quarterdeck")
+    expect(response.body).to include("quarterdeck-csszero")
     expect(response.body).to include("css-zero/utilities")
   end
 
@@ -42,5 +42,26 @@ RSpec.describe "Quarterdeck self-contained layout", type: :request do
     get "/analytics"
     expect(response.body).to include(%(data-controller="chart"))
     expect(response.body).to include(%(data-chart-type-value="line"))
+  end
+
+  it "uses the header layout with a desktop header menu and a mobile sheet menu" do
+    get "/analytics"
+    expect(response.body).to include(%(<body class="header-layout">))
+    expect(response.body).to include(%(id="header"))
+    expect(response.body).to include(%(id="main"))
+
+    # Desktop header menu (analytics sections, hidden below md)
+    expect(response.body).to include(%(show@md))
+    expect(response.body).to include(%(aria-label="Analytics sections"))
+
+    # Mobile menu button + left sheet
+    expect(response.body).to include(%(data-controller="menu"))
+    expect(response.body).to include(%(class="sheet sheet--left"))
+    expect(response.body).to include(%(data-menu-target="panel"))
+
+    # Every section is reachable from both menus
+    %w[Overview Visits Events Campaigns Geographic Live].each do |section|
+      expect(response.body.scan(section).size).to be >= 2
+    end
   end
 end

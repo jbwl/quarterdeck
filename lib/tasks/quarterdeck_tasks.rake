@@ -10,7 +10,7 @@ namespace :quarterdeck_css_zero do
     version = Gem::Specification.find_by_name("css-zero").version
 
     # Components Quarterdeck renders with. Keep in sync with the views.
-    components = %w[card table badge button input pagination tabs alert separator skeleton list flash]
+    components = %w[card table badge button input pagination tabs alert separator skeleton list flash sheet sidebar_menu]
 
     output = +""
     output << "/*\n"
@@ -46,6 +46,7 @@ namespace :quarterdeck_css_zero do
       # them at the images vendored into the engine.
       body = body.gsub('url("loading.svg")', 'url("quarterdeck-csszero/loading.svg")')
       body = body.gsub('url("chevron-down-zinc-500.svg")', 'url("quarterdeck-csszero/chevron-down-zinc-500.svg")')
+      body = body.gsub('url("chevron-right.svg")', 'url("quarterdeck-csszero/chevron-right.svg")')
 
       output << "/* ---- css-zero/#{component}.css ---- */\n"
       output << body.strip << "\n\n"

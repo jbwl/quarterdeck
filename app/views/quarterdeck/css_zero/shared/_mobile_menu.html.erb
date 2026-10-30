@@ -1,0 +1,60 @@
+<%# Mobile menu: a button that opens a left sheet with the analytics sections. %>
+<div data-controller="menu">
+  <button type="button" class="btn btn--icon hide@md" data-action="click->menu#open">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+         style="inline-size: 1.25rem; block-size: 1.25rem">
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M9 3v18" />
+    </svg>
+    <span class="sr-only">Open menu</span>
+  </button>
+
+  <dialog class="sheet sheet--left" style="--sheet-size: 288px"
+          data-menu-target="panel" data-action="click->menu#closeOnBackdrop">
+    <button type="button" class="btn btn--icon btn--plain sheet__close" data-action="click->menu#close">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+           style="inline-size: 1.25rem; block-size: 1.25rem">
+        <path d="M18 6 6 18" />
+        <path d="m6 6 12 12" />
+      </svg>
+      <span class="sr-only">Close menu</span>
+    </button>
+
+    <div class="sheet__content p-2">
+      <div class="sidebar-menu">
+        <a class="btn sidebar-menu__button" href="<%= quarterdeck_css_zero.root_path %>" data-action="click->menu#close">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+               style="inline-size: 1.25rem; block-size: 1.25rem">
+            <path d="M3 3v18h18" />
+            <path d="M7 16v-4" />
+            <path d="M12 16V8" />
+            <path d="M17 16v-7" />
+          </svg>
+          <div class="flex flex-col text-start leading-tight overflow-hidden">
+            <span class="overflow-ellipsis font-semibold">Quarterdeck</span>
+            <span class="overflow-ellipsis text-xs text-subtle">Analytics</span>
+          </div>
+        </a>
+
+        <nav class="sidebar-menu__content" aria-label="Analytics sections">
+          <div class="sidebar-menu__group">
+            <div class="sidebar-menu__group-label" aria-hidden="true">Analytics</div>
+            <ul class="sidebar-menu__items">
+              <% quarterdeck_sections.each do |section| %>
+                <li>
+                  <%= link_to section[:name], section[:path],
+                    class: "btn sidebar-menu__button",
+                    "aria-current": (section[:active] ? "page" : nil),
+                    data: { action: "click->menu#close" } %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </dialog>
+</div>
