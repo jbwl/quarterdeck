@@ -2,19 +2,14 @@ require "rails_helper"
 
 RSpec.describe Quarterdeck do
   after do
-    Quarterdeck.parent_controller = "ApplicationController"
-    Quarterdeck.authenticate_with { } # reset
+    Quarterdeck.parent_controller = nil
     Quarterdeck.instance_variable_set(:@authentication_block, nil)
   end
 
-  describe ".parent_controller" do
-    it "defaults to ApplicationController" do
-      expect(Quarterdeck.parent_controller).to eq("ApplicationController")
-    end
-
-    it "can be configured" do
-      Quarterdeck.parent_controller = "AdminController"
-      expect(Quarterdeck.parent_controller).to eq("AdminController")
+  describe ".parent_controller (deprecated)" do
+    it "is a no-op accessor kept for backwards compatibility" do
+      expect(Quarterdeck.parent_controller).to be_nil
+      expect { Quarterdeck.parent_controller = "ApplicationController" }.not_to raise_error
     end
   end
 
