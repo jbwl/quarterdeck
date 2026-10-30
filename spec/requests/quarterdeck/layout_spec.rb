@@ -44,6 +44,11 @@ RSpec.describe "Quarterdeck self-contained layout", type: :request do
     expect(response.body).to include(%(data-chart-type-value="line"))
   end
 
+  it "links back to the host application from the header" do
+    get "/analytics"
+    expect(response.body).to include(%(href="/">Back to app</a>))
+  end
+
   it "uses the header layout with a desktop header menu and a mobile sheet menu" do
     get "/analytics"
     expect(response.body).to include(%(<body class="header-layout">))

@@ -68,6 +68,9 @@ Quarterdeck::CssZero.authenticate_with do
 end
 ```
 
+The header links back to your application with `main_app.root_path`, so your app
+needs a root route.
+
 ## Pages
 
 | Path | Description |

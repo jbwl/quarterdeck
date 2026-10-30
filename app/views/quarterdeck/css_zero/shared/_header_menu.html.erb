@@ -1,5 +1,6 @@
-<%# Desktop header menu: brand + the analytics sections (hidden below md). %>
-<div class="flex items-center gap">
+<%# Desktop header menu: brand + the analytics sections (hidden below md), and a
+    link back to the host app's root. %>
+<div class="flex-1 flex items-center gap">
   <a class="flex items-center gap mie-2" href="<%= quarterdeck_css_zero.root_path %>">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
@@ -19,4 +20,7 @@
         "aria-current": (section[:active] ? "page" : nil) %>
     <% end %>
   </nav>
+
+  <%# `main_app` reaches the host application's routes from inside the engine. %>
+  <%= link_to "Back to app", main_app.root_path, class: "mis-auto text-sm text-subtle" %>
 </div>

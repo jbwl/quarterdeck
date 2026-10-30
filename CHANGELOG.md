@@ -13,6 +13,8 @@ Added a **Top Events** page (`/analytics/top_events`).
 - Filter by property and, optionally, by event name. Top 5 rendered as a
   horizontal bar chart; the full breakdown is paginated (25 per page) with a CSV
   export.
+- **Back to app**: the header links back to the host application's root
+  (`main_app.root_path`).
 
 ## 1.0.0
 
