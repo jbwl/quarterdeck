@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.0
+
+Added a **Top Events** page (`/analytics/top_events`).
+
+- Reports the top values of **any** property found on your events — e.g.
+  `campaign_name` — so in-app campaigns (catalogs, banners, newsletters) can be
+  ranked without the visit-level UTM columns the Campaigns page uses.
+- Property keys are discovered from the events in the selected period; no
+  configuration required. Works on PostgreSQL and SQLite (`jsonb_object_keys` /
+  `json_each`).
+- Filter by property and, optionally, by event name. Top 5 rendered as a
+  horizontal bar chart; the full breakdown is paginated (25 per page) with a CSV
+  export.
+
 ## 1.0.0
 
 Renamed the gem to `quarterdeck-csszero` and made the engine fully self-contained.

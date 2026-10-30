@@ -76,12 +76,36 @@ end
 | `/analytics/visits` | Visit log with filters |
 | `/analytics/visits/:id` | Visit detail with events |
 | `/analytics/events` | Event breakdown |
+| `/analytics/top_events` | Top event counts by any event property |
 | `/analytics/campaigns` | UTM campaign analysis |
 | `/analytics/geographic` | Geographic breakdown |
 | `/analytics/live` | Real-time active visitors |
 
 All pages support period filtering: Today, 7 days, 30 days, 90 days, or a custom
 date range.
+
+## In-app campaigns and custom properties
+
+Ahoy stores everything you pass to `ahoy.track` in the event's `properties`, and
+the **Top Events** page reports the top values of any property it finds on your
+events — no configuration needed. Attach a campaign to the events you care about:
+
+```ruby
+ahoy.track "Catalog viewed", campaign_name: @catalog.display_name, catalog_id: @catalog.id
+```
+
+Open `/analytics/top_events`, pick a property (`campaign_name`, `catalog_id`, …)
+and optionally an event name. You get the top 5 as a horizontal bar chart, the
+full breakdown as a paginated table (25 per page) and a CSV export.
+
+Property keys are discovered from the events in the selected period, so a key
+appears in the filter as soon as something tracks it. Values should be flat and
+scalar; nested objects are reported as raw JSON.
+
+This is separate from the **Campaigns** page, which is visit-level: it reads the
+`utm_*` columns Ahoy captures from the landing URL. Use Campaigns for external
+traffic (`?utm_campaign=…` on an ad or newsletter link) and Top Events for in-app
+attributes such as which catalog, banner or newsletter a visitor interacted with.
 
 ## Charts and CSS
 

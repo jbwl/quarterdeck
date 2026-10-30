@@ -1,0 +1,91 @@
+<div class="qcz-stack">
+  <!-- Filters -->
+  <div class="card">
+    <%= form_tag quarterdeck_css_zero.top_events_path, method: :get, class: "qcz-filters" do %>
+      <%= hidden_field_tag :period, period %>
+
+      <div class="qcz-field qcz-field--grow">
+        <label>Event Name</label>
+        <%= select_tag :name,
+          options_for_select(@event_names.map { |name, count| [ "#{name} (#{count})", name ] }, params[:name]),
+          include_blank: "All Events", class: "input" %>
+      </div>
+
+      <div class="qcz-field qcz-field--grow">
+        <label>Property</label>
+        <%= select_tag :property, options_for_select(@property_keys, @property_key), class: "input" %>
+      </div>
+
+      <%= submit_tag "Filter", class: "btn btn--primary" %>
+
+      <% if params[:name].present? || params[:property].present? %>
+        <%= link_to "Clear", quarterdeck_css_zero.top_events_path(period: period), class: "btn btn--borderless" %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if @property_key.blank? %>
+    <div class="card text-center text-subtle text-sm">
+      No event properties found for this period. Track them with
+      <code class="qcz-code">ahoy.track "Catalog viewed", campaign_name: @catalog.display_name</code>
+    </div>
+  <% else %>
+    <!-- Top entries chart -->
+    <% if @chart_rows.any? %>
+      <div class="card">
+        <h3 class="font-semibold text-sm mbe-4">Top <%= @chart_rows.size %> by <%= @property_key %></h3>
+        <div class="qcz-chart-frame">
+          <%= quarterdeck_chart type: "bar",
+            data: {
+              labels: @chart_rows.map(&:first),
+              datasets: [{
+                label: "Events",
+                data: @chart_rows.map(&:last),
+                backgroundColor: "#6366f1",
+                borderWidth: 0
+              }]
+            },
+            options: { indexAxis: "y", scales: { x: { beginAtZero: true } } } %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Paginated breakdown -->
+    <div class="card">
+      <div class="flex items-center justify-between mbe-3">
+        <h3 class="font-semibold text-sm">Breakdown by <%= @property_key %></h3>
+        <%= link_to "Export CSV", url_for(request.query_parameters.merge(format: :csv)),
+          class: "text-link text-xs" %>
+      </div>
+      <div class="qcz-scroll">
+        <table class="table">
+          <thead>
+            <tr>
+              <th><%= @property_key %></th>
+              <th class="text-end">Events</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @rows.any? %>
+              <% @rows.each do |value, count| %>
+                <tr>
+                  <td><%= value.presence || "(none)" %></td>
+                  <td class="text-end"><%= number_with_delimiter(count) %></td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="2" class="text-center text-subtle">No data for this period</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% if @pagy %>
+        <div class="mbs-3">
+          <%= render "quarterdeck/css_zero/shared/pagination", pagy: @pagy %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -60,7 +60,7 @@ RSpec.describe "Quarterdeck self-contained layout", type: :request do
     expect(response.body).to include(%(data-menu-target="panel"))
 
     # Every section is reachable from both menus
-    %w[Overview Visits Events Campaigns Geographic Live].each do |section|
+    %w[Overview Visits Events Top\ Events Campaigns Geographic Live].each do |section|
       expect(response.body.scan(section).size).to be >= 2
     end
   end
