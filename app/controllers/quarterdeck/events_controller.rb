@@ -15,7 +15,11 @@ module Quarterdeck
       @prev_total_events = prev_scope.count
       @prev_unique_events = prev_scope.distinct.count(:name)
 
+      # `reorder(nil)` drops the `ORDER BY time DESC` carried by `scope`;
+      # grouping an ordered relation makes PostgreSQL reject the query
+      # (column "ahoy_events.time" must appear in the GROUP BY clause).
       @daily_events = scope
+        .reorder(nil)
         .group_by_day(:time)
         .count
 

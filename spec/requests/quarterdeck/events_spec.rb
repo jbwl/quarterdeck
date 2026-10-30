@@ -28,6 +28,16 @@ RSpec.describe "Quarterdeck::Events", type: :request do
       expect(response).to have_http_status(:ok)
     end
 
+    # Regression: the daily series must not be grouped off an ordered relation.
+    # PostgreSQL rejects `... GROUP BY day ORDER BY ahoy_events.time` with
+    # PG::GroupingError; this passes on SQLite even without the fix, so CI runs
+    # this suite against PostgreSQL too.
+    it "renders the grouped daily events chart" do
+      get "/analytics/events"
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include(%(data-chart-type-value="bar"))
+    end
+
     it "displays event stats" do
       get "/analytics/events"
       expect(response.body).to include("Total Events")
