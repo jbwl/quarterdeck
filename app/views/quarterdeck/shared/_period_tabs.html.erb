@@ -5,27 +5,29 @@
     { label: "30 days", value: "30d" },
     { label: "90 days", value: "90d" }
   ]
-  custom_active = period == "custom"
 %>
-<div class="flex flex-wrap items-center gap-1 mb-6" data-controller="date-range">
-  <% periods.each do |p| %>
-    <% active = period == p[:value] %>
-    <%= link_to p[:label],
-      url_for(request.query_parameters.merge(period: p[:value]).except("start_date", "end_date")),
-      class: "px-3 py-1.5 text-xs font-medium rounded-md transition #{active ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'}" %>
+<div class="flex flex-wrap items-center gap">
+  <div class="tabs__list">
+    <% periods.each do |p| %>
+      <% active = period == p[:value] %>
+      <%= link_to p[:label],
+        url_for(request.query_parameters.merge(period: p[:value]).except("start_date", "end_date", "page")),
+        class: "btn tabs__button",
+        "aria-current": (active ? "page" : nil) %>
+    <% end %>
+    <% if period == "custom" %>
+      <span class="btn tabs__button" aria-current="page">Custom</span>
+    <% end %>
+  </div>
+
+  <%= form_tag request.path, method: :get, class: "flex flex-wrap items-center gap" do %>
+    <% request.query_parameters.except("period", "start_date", "end_date", "page").each do |key, value| %>
+      <%= hidden_field_tag key, value %>
+    <% end %>
+    <%= hidden_field_tag :period, "custom" %>
+    <%= date_field_tag :start_date, params[:start_date], class: "input" %>
+    <span class="text-subtle text-sm">to</span>
+    <%= date_field_tag :end_date, params[:end_date], class: "input" %>
+    <%= submit_tag "Apply", class: "btn" %>
   <% end %>
-
-  <span class="px-3 py-1.5 text-xs font-medium rounded-md transition cursor-default <%= custom_active ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 border border-gray-200' %>">Custom</span>
-
-  <input type="date"
-    data-date-range-target="startDate"
-    data-action="change->date-range#submit"
-    value="<%= params[:start_date] %>"
-    class="px-2 py-1 text-xs rounded-md border border-gray-200 text-gray-700 focus:border-indigo-500 focus:ring-indigo-500">
-  <span class="text-xs text-gray-400">to</span>
-  <input type="date"
-    data-date-range-target="endDate"
-    data-action="change->date-range#submit"
-    value="<%= params[:end_date] %>"
-    class="px-2 py-1 text-xs rounded-md border border-gray-200 text-gray-700 focus:border-indigo-500 focus:ring-indigo-500">
 </div>

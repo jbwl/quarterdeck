@@ -1,22 +1,16 @@
-<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-  <dt class="text-sm font-medium text-gray-500 truncate"><%= title %></dt>
-  <dd class="mt-2 flex items-baseline gap-2">
-    <span class="text-3xl font-bold text-gray-900"><%= number_with_delimiter(value) %></span>
+<div class="card qd-stat">
+  <div class="text-sm text-subtle"><%= title %></div>
+  <div class="qd-stat__value">
+    <span class="text-3xl font-bold"><%= number_with_delimiter(value) %></span>
     <% if local_assigns[:previous_value] && previous_value && previous_value > 0 %>
       <% change = ((value - previous_value).to_f / previous_value * 100).round(1) %>
       <% if change > 0 %>
-        <span class="inline-flex items-center text-xs font-medium text-green-700 bg-green-50 rounded-full px-2 py-0.5">
-          <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
-          <%= change %>%
-        </span>
+        <span class="badge badge--primary"><%= change %>%</span>
       <% elsif change < 0 %>
-        <span class="inline-flex items-center text-xs font-medium text-red-700 bg-red-50 rounded-full px-2 py-0.5">
-          <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          <%= change.abs %>%
-        </span>
+        <span class="badge badge--negative"><%= change.abs %>%</span>
       <% else %>
-        <span class="inline-flex items-center text-xs font-medium text-gray-500 bg-gray-50 rounded-full px-2 py-0.5">—</span>
+        <span class="badge">&mdash;</span>
       <% end %>
     <% end %>
-  </dd>
+  </div>
 </div>

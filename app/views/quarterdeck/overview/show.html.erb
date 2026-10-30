@@ -1,31 +1,37 @@
-<div class="space-y-8">
+<div class="qd-stack">
   <!-- Stats -->
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+  <div class="qd-grid qd-grid--stats">
     <%= render "quarterdeck/shared/stat_card", title: "Total Visits", value: @total_visits, previous_value: @prev_total_visits %>
     <%= render "quarterdeck/shared/stat_card", title: "Unique Visitors", value: @unique_visitors, previous_value: @prev_unique_visitors %>
     <%= render "quarterdeck/shared/stat_card", title: "Total Events", value: @total_events, previous_value: @prev_total_events %>
   </div>
 
   <!-- Daily Visits Chart -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="text-sm font-semibold text-gray-900">Visits Over Time</h3>
+  <div class="card">
+    <div class="flex items-center justify-between mbe-4">
+      <h3 class="font-semibold text-sm">Visits Over Time</h3>
       <%= link_to "Export CSV", url_for(request.query_parameters.merge(format: :csv)),
-        class: "text-xs text-indigo-600 hover:text-indigo-800 font-medium" %>
+        class: "text-link text-xs" %>
     </div>
-    <div class="h-64">
-      <canvas
-        data-controller="chart"
-        data-chart-type-value="line"
-        data-chart-labels-value="<%= @daily_visits.keys.map { |d| d.strftime("%b %d") }.to_json %>"
-        data-chart-data-value="<%= @daily_visits.values.to_json %>"
-        data-chart-label-value="Visits"
-      ></canvas>
+    <div class="qd-chart-frame">
+      <%= quarterdeck_chart type: "line",
+        data: {
+          labels: @daily_visits.keys.map { |d| d.strftime("%b %d") },
+          datasets: [{
+            label: "Visits",
+            data: @daily_visits.values,
+            borderColor: "#6366f1",
+            backgroundColor: "rgba(99, 102, 241, 0.1)",
+            fill: true,
+            borderWidth: 2
+          }]
+        },
+        options: { scales: { y: { beginAtZero: true } } } %>
     </div>
   </div>
 
   <!-- Two Column Grid -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <div class="qd-grid qd-grid--2">
     <%= render "quarterdeck/shared/data_table", title: "Top Pages", label: "Page", count_label: "Views", data: @top_pages %>
     <%= render "quarterdeck/shared/data_table", title: "Top Referrers", label: "Referrer", count_label: "Visits", data: @top_referrers %>
     <%= render "quarterdeck/shared/data_table", title: "Browsers", label: "Browser", count_label: "Visits", data: @browsers %>

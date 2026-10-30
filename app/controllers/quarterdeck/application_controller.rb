@@ -4,6 +4,8 @@ module Quarterdeck
   class ApplicationController < ActionController::Base
     include Pagy::Method
 
+    layout "quarterdeck/application"
+
     before_action :authenticate_quarterdeck!
 
     helper_method :period, :period_range, :previous_period_range

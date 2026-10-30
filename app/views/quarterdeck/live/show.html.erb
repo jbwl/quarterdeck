@@ -1,41 +1,33 @@
-<div class="space-y-6" data-controller="live" data-live-url-value="<%= quarterdeck.live_path(format: :json) %>">
+<div class="qd-stack" data-controller="live" data-live-url-value="<%= quarterdeck.live_path(format: :json) %>" data-live-interval-value="5000">
   <!-- Active Visitors -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-    <div class="inline-flex items-center gap-3">
-      <span class="relative flex h-3 w-3">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-      </span>
-      <span class="text-5xl font-bold text-gray-900" data-live-target="activeVisitors"><%= @active_visitors %></span>
-    </div>
-    <p class="mt-2 text-sm text-gray-500">active visitors in the last 5 minutes</p>
+  <div class="card text-center">
+    <div class="text-5xl font-bold" data-live-target="activeVisitors"><%= @active_visitors %></div>
+    <p class="text-sm text-subtle mbs-2">active visitors in the last 5 minutes</p>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <div class="qd-grid qd-grid--2">
     <!-- Current Pages -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-      <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-sm font-semibold text-gray-900">Pages Being Viewed</h3>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
+    <div class="card">
+      <h3 class="font-semibold text-sm mbe-3">Pages Being Viewed</h3>
+      <div class="qd-scroll">
+        <table class="table qd-table-live">
+          <thead>
             <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Page</th>
-              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Viewers</th>
+              <th>Page</th>
+              <th class="text-end">Viewers</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-200" data-live-target="currentPages">
+          <tbody data-live-target="currentPages">
             <% if @current_pages.any? %>
               <% @current_pages.each do |url, count| %>
-                <tr class="hover:bg-gray-50">
-                  <td class="px-6 py-3 text-sm text-gray-900 truncate max-w-xs"><%= url %></td>
-                  <td class="px-6 py-3 text-sm text-gray-600 text-right"><%= count %></td>
+                <tr>
+                  <td><span class="qd-truncate"><%= url %></span></td>
+                  <td class="text-end"><%= count %></td>
                 </tr>
               <% end %>
             <% else %>
               <tr>
-                <td colspan="2" class="px-6 py-8 text-sm text-gray-400 text-center">No active pages</td>
+                <td colspan="2" class="text-center text-subtle">No active pages</td>
               </tr>
             <% end %>
           </tbody>
@@ -44,27 +36,23 @@
     </div>
 
     <!-- Live Event Stream -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-      <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-sm font-semibold text-gray-900">Live Event Stream</h3>
-      </div>
-      <div class="overflow-x-auto max-h-96 overflow-y-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50 sticky top-0">
+    <div class="card">
+      <h3 class="font-semibold text-sm mbe-3">Live Event Stream</h3>
+      <div class="qd-scroll">
+        <table class="table qd-table-live">
+          <thead>
             <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Visitor</th>
+              <th>Time</th>
+              <th>Event</th>
+              <th>Visitor</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-200" data-live-target="recentEvents">
+          <tbody data-live-target="recentEvents">
             <% @recent_events.each do |event| %>
-              <tr class="hover:bg-gray-50">
-                <td class="px-6 py-3 text-sm text-gray-900 whitespace-nowrap"><%= event.time.strftime("%H:%M:%S") %></td>
-                <td class="px-6 py-3 text-sm">
-                  <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-indigo-50 text-indigo-700"><%= event.name %></span>
-                </td>
-                <td class="px-6 py-3 text-sm text-gray-500 font-mono"><%= event.visit&.visitor_token&.first(8) %></td>
+              <tr>
+                <td class="whitespace-nowrap"><%= event.time.strftime("%H:%M:%S") %></td>
+                <td><span class="badge"><%= event.name %></span></td>
+                <td class="text-subtle"><%= event.visit&.visitor_token&.first(8) %></td>
               </tr>
             <% end %>
           </tbody>

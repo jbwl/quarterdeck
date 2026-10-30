@@ -5,32 +5,13 @@
     { name: "Events", path: quarterdeck.events_path, active: controller_name == "events" },
     { name: "Campaigns", path: quarterdeck.campaigns_path, active: controller_name == "campaigns" },
     { name: "Geographic", path: quarterdeck.geographic_path, active: controller_name == "geographics" },
-    { name: "Live", path: quarterdeck.live_path, active: controller_name == "live", live: true }
+    { name: "Live", path: quarterdeck.live_path, active: controller_name == "live" }
   ]
 %>
-<nav class="flex space-x-1 mb-4" aria-label="Tabs">
+<nav class="tabs__list" aria-label="Analytics sections">
   <% nav_items.each do |item| %>
-    <% if item[:active] %>
-      <%= link_to item[:path],
-        class: "bg-indigo-100 text-indigo-700 px-4 py-2 font-medium text-sm rounded-lg inline-flex items-center gap-1.5" do %>
-        <% if item[:live] %>
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-          </span>
-        <% end %>
-        <%= item[:name] %>
-      <% end %>
-    <% else %>
-      <%= link_to item[:path],
-        class: "text-gray-500 hover:text-gray-700 hover:bg-gray-100 px-4 py-2 font-medium text-sm rounded-lg transition inline-flex items-center gap-1.5" do %>
-        <% if item[:live] %>
-          <span class="relative flex h-2 w-2">
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-          </span>
-        <% end %>
-        <%= item[:name] %>
-      <% end %>
-    <% end %>
+    <%= link_to item[:name], item[:path],
+      class: "btn tabs__button",
+      "aria-current": (item[:active] ? "page" : nil) %>
   <% end %>
 </nav>

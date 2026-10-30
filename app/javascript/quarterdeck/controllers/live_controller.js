@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["activeVisitors", "currentPages", "recentEvents"]
-  static values = { url: String }
+  static values = { url: String, interval: { type: Number, default: 5000 } }
 
   connect() {
     this.poll()
@@ -13,47 +13,58 @@ export default class extends Controller {
   }
 
   poll() {
-    fetch(this.urlValue)
-      .then(response => response.json())
-      .then(data => this.update(data))
+    fetch(this.urlValue, { headers: { Accept: "application/json" } })
+      .then((response) => response.json())
+      .then((data) => this.update(data))
       .catch(() => {})
       .finally(() => {
-        this.timer = setTimeout(() => this.poll(), 5000)
+        this.timer = setTimeout(() => this.poll(), this.intervalValue)
       })
   }
 
   update(data) {
-    this.activeVisitorsTarget.textContent = data.active_visitors
+    if (this.hasActiveVisitorsTarget) {
+      this.activeVisitorsTarget.textContent = data.active_visitors
+    }
 
     if (this.hasCurrentPagesTarget) {
       if (data.current_pages.length > 0) {
-        this.currentPagesTarget.innerHTML = data.current_pages.map(p =>
-          `<tr class="hover:bg-gray-50">
-            <td class="px-6 py-3 text-sm text-gray-900 truncate max-w-xs">${this.escapeHtml(p.url)}</td>
-            <td class="px-6 py-3 text-sm text-gray-600 text-right">${p.count}</td>
-          </tr>`
-        ).join("")
+        this.currentPagesTarget.innerHTML = data.current_pages
+          .map((page) => this.row([this.cell(page.url), this.cell(page.count, "text-end")]))
+          .join("")
       } else {
-        this.currentPagesTarget.innerHTML = `<tr><td colspan="2" class="px-6 py-8 text-sm text-gray-400 text-center">No active pages</td></tr>`
+        this.currentPagesTarget.innerHTML = this.emptyRow(2, "No active pages")
       }
     }
 
     if (this.hasRecentEventsTarget) {
-      this.recentEventsTarget.innerHTML = data.recent_events.map(e =>
-        `<tr class="hover:bg-gray-50">
-          <td class="px-6 py-3 text-sm text-gray-900 whitespace-nowrap">${this.escapeHtml(e.time)}</td>
-          <td class="px-6 py-3 text-sm">
-            <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-indigo-50 text-indigo-700">${this.escapeHtml(e.name)}</span>
-          </td>
-          <td class="px-6 py-3 text-sm text-gray-500 font-mono">${this.escapeHtml(e.visitor || "")}</td>
-        </tr>`
-      ).join("")
+      this.recentEventsTarget.innerHTML = data.recent_events
+        .map((event) =>
+          this.row([
+            this.cell(event.time, "whitespace-nowrap"),
+            this.cell(`<span class="badge">${this.escapeHtml(event.name)}</span>`),
+            this.cell(event.visitor || "", "text-subtle")
+          ])
+        )
+        .join("")
     }
+  }
+
+  row(cells) {
+    return `<tr>${cells.join("")}</tr>`
+  }
+
+  cell(content, classes = "") {
+    return `<td class="${classes}">${content}</td>`
+  }
+
+  emptyRow(colspan, label) {
+    return `<tr><td colspan="${colspan}" class="text-center text-subtle">${this.escapeHtml(label)}</td></tr>`
   }
 
   escapeHtml(text) {
     const div = document.createElement("div")
-    div.textContent = text || ""
+    div.textContent = text == null ? "" : text
     return div.innerHTML
   }
 }

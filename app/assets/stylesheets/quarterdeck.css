@@ -1,0 +1,706 @@
+/*
+ * Quarterdeck stylesheet.
+ *
+ * The section below is vendored verbatim from the CSS Zero gem (v4.3.0)
+ * so the engine is self-contained and never depends on styles the host app
+ * may or may not have copied in via `css_zero:add`.
+ *
+ * Regenerate with: bundle exec rake quarterdeck:update_css_zero
+ * Do not edit the vendored section by hand; edit
+ * app/assets/stylesheets/quarterdeck/dashboard.css instead.
+ */
+
+/* ---- css-zero/base.css (install template) ---- */
+:root {
+  --color-bg: light-dark(white, var(--zinc-950));
+  --color-surface: light-dark(white, var(--zinc-900));
+  --color-surface-negative: light-dark(var(--red-100), var(--red-950));
+  --color-text: light-dark(var(--zinc-950), white);
+  --color-text-reversed: light-dark(white, var(--zinc-950));
+  --color-text-subtle: light-dark(var(--zinc-500), var(--zinc-400));
+  --color-text-negative: light-dark(var(--red-600), var(--red-400));
+  --color-link: light-dark(var(--blue-700), var(--blue-400));
+  --color-border-light: light-dark(var(--zinc-100), var(--zinc-800));
+  --color-border: light-dark(var(--zinc-200), var(--zinc-700));
+  --color-border-dark: light-dark(var(--zinc-400), var(--zinc-600));
+  --color-selected: light-dark(var(--sky-100), var(--sky-950));
+  --color-selected-dark: light-dark(var(--blue-300), var(--blue-800));
+  --color-highlight: light-dark(var(--yellow-200), var(--yellow-900));
+  --color-primary: light-dark(var(--zinc-900), var(--zinc-50));
+  --color-secondary: light-dark(var(--zinc-100), var(--zinc-800));
+}
+
+* {
+  border-color: var(--color-border);
+  scrollbar-color: #C1C1C1 transparent;
+  scrollbar-width: thin;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-synthesis-weight: none;
+  overscroll-behavior: none;
+  text-rendering: optimizeLegibility;
+}
+
+.turbo-progress-bar {
+  background-color: var(--color-primary);
+}
+
+::selection {
+  background-color: var(--color-selected);
+  color: var(--color-text);
+}
+
+/* ---- css-zero/card.css ---- */
+.card {
+  --card-padding: var(--size-4);
+  background-color: var(--color-surface);
+  border-radius: var(--rounded-xl);
+  border-width: var(--border);
+  box-shadow: var(--shadow-sm);
+  padding: var(--card-padding);
+}
+
+.card__footer {
+  background-color: rgb(from var(--color-border-light) r g b / .5);
+  border-block-start-width: var(--border);
+  margin-block-end: calc(var(--card-padding) * -1);
+  margin-inline: calc(var(--card-padding) * -1);
+  padding: var(--card-padding);
+}
+
+/* ---- css-zero/table.css ---- */
+:where(.table) {
+  caption-side: bottom;
+  font-size: var(--text-sm);
+  inline-size: var(--size-full);
+
+  caption {
+    color: var(--color-text-subtle);
+    margin-block-start: var(--size-4);
+  }
+
+  thead {
+    color: var(--color-text);
+  }
+
+  tbody tr {
+    border-block-start-width: var(--border);
+  }
+
+  tr:hover {
+    background-color: rgb(from var(--color-border-light) r g b / .5);
+  }
+
+  tr:has(:checked) {
+    background-color: var(--color-border-light);
+  }
+
+  th {
+    font-weight: var(--font-medium);
+    text-align: start;
+  }
+
+  th, td {
+    padding: var(--size-2);
+  }
+
+  tfoot {
+    background-color: rgb(from var(--color-border-light) r g b / .5);
+    border-block-start-width: var(--border);
+    font-weight: var(--font-medium);
+  }
+}
+
+/* ---- css-zero/badge.css ---- */
+.badge {
+  align-items: center;
+  background-color: var(--badge-background, var(--color-bg));
+  border: 1px solid var(--badge-border-color, var(--color-border));
+  border-radius: var(--badge-radius, var(--rounded-3xl));
+  color: var(--badge-color, var(--color-text));
+  column-gap: var(--size-1);
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  justify-content: center;
+  line-height: var(--leading-tight);
+  min-inline-size: var(--badge-min-inline-size, 0);
+  padding: var(--badge-padding, .125rem .5rem);
+  white-space: nowrap;
+
+  .icon {
+    --icon-size: var(--size-3);
+  }
+}
+
+.badge--primary {
+  --badge-background: var(--color-primary);
+  --badge-border-color: transparent;
+  --badge-color: var(--color-text-reversed);
+}
+
+.badge--secondary {
+  --badge-background: var(--color-secondary);
+  --badge-border-color: transparent;
+  --badge-color: var(--color-text);
+}
+
+.badge--negative {
+  --badge-background: var(--color-surface-negative);
+  --badge-border-color: transparent;
+  --badge-color: var(--color-text-negative);
+}
+
+/* ---- css-zero/button.css ---- */
+.btn {
+  align-items: center;
+  background-color: var(--btn-background, var(--color-surface));
+  block-size: var(--btn-block-size, auto);
+  border: 1px solid var(--btn-border-color, var(--color-border));
+  border-radius: var(--btn-radius, var(--rounded-lg));
+  box-shadow: var(--btn-box-shadow, var(--shadow-xs));
+  color: var(--btn-color, var(--color-text));
+  column-gap: var(--btn-column-gap, var(--size-1_5));
+  cursor: var(--btn-cursor, default);
+  display: inline-flex;
+  font-size: var(--btn-font-size, var(--text-sm));
+  font-weight: var(--btn-font-weight, var(--font-medium));
+  inline-size: var(--btn-inline-size, auto);
+  justify-content: var(--btn-justify-content, center);
+  padding: var(--btn-padding, .25rem .625rem);
+  position: relative;
+  white-space: nowrap;
+
+  .icon {
+    --icon-size: var(--btn-icon-size, 1rem);
+  }
+
+  &:hover {
+    background-color: var(--btn-hover-color, var(--color-border-light));
+  }
+
+  &:focus-visible {
+    outline: var(--btn-outline-size, 2px) solid var(--color-selected-dark);
+  }
+
+  &:is(:disabled, [aria-disabled="true"]) {
+    opacity: var(--opacity-50);
+    pointer-events: none;
+  }
+}
+
+/* Variants */
+
+.btn--primary {
+  --btn-background: var(--color-primary);
+  --btn-border-color: transparent;
+  --btn-color: var(--color-text-reversed);
+  --btn-hover-color: rgb(from var(--color-primary) r g b / .9);
+}
+
+.btn--secondary {
+  --btn-background: var(--color-secondary);
+  --btn-border-color: transparent;
+  --btn-hover-color: rgb(from var(--color-secondary) r g b / .8);
+}
+
+.btn--borderless {
+  --btn-background: transparent;
+  --btn-border-color: transparent;
+  --btn-box-shadow: none;
+}
+
+.btn--negative {
+  --btn-background: var(--color-surface-negative);
+  --btn-border-color: transparent;
+  --btn-color: var(--color-text-negative);
+  --btn-hover-color: rgb(from var(--color-surface-negative) r g b / .9);
+}
+
+.btn--plain {
+  --btn-background: transparent;
+  --btn-border-color: transparent;
+  --btn-box-shadow: none;
+  --btn-hover-color: transparent;
+  --btn-padding: 0;
+}
+
+.btn--icon {
+  --btn-padding: var(--size-1_5);
+}
+
+/* Sizes */
+
+.btn--xs {
+  --btn-font-size: var(--text-xs);
+  --btn-padding: var(--size-0_5) var(--size-2);
+}
+
+.btn--icon-xs {
+  --btn-icon-size: var(--size-3_5);
+  --btn-padding: var(--size-1);
+}
+
+.btn--sm {
+  --btn-padding: var(--size-0_5) var(--size-2_5);
+}
+
+.btn--icon-sm {
+  --btn-padding: var(--size-1);
+}
+
+.btn--lg {
+  --btn-padding: var(--size-1_5) var(--size-3);
+}
+
+.btn--icon-lg {
+  --btn-padding: var(--size-2);
+}
+
+/* Extras */
+
+.btn--feedback {
+  transition-duration: var(--time-150);
+  transition-property: transform;
+  transition-timing-function: var(--ease-out-3);
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+[aria-busy] .btn--busy:disabled {
+  > * {
+    visibility: hidden;
+  }
+
+  &::after {
+    animation: x-spin 1s linear infinite;
+    background-color: currentColor;
+    block-size: var(--size-4);
+    content: "";
+    inline-size: var(--size-4);
+    mask-image: url("quarterdeck/loading.svg");
+    mask-size: cover;
+    position: absolute;
+  }
+}
+
+/* ---- css-zero/input.css ---- */
+:where(.input) {
+  &:not([type="checkbox"], [type="radio"], [type="range"]) {
+    appearance: none;
+    background-color: var(--input-background, var(--color-surface));
+    block-size: var(--input-block-size, auto);
+    border: 1px solid var(--input-border-color, var(--color-border));
+    border-radius: var(--input-radius, var(--rounded-md));
+    box-shadow: var(--input-box-shadow, var(--shadow-xs));
+    font-size: var(--input-font-size, var(--text-sm));
+    inline-size: var(--input-inline-size, var(--size-full));
+    padding: var(--input-padding, .25rem .625rem);
+  }
+
+  &:is([type="checkbox"], [type="radio"]) {
+    accent-color: var(--input-accent-color, var(--color-primary));
+    block-size: var(--input-check-size, var(--size-4));
+    inline-size: var(--input-check-size, var(--size-4));
+  }
+
+  &:is([type="range"]) {
+    accent-color: var(--input-accent-color, var(--color-primary));
+    zoom: var(--input-range-zoom, .625);
+  }
+
+  &:is([rows="auto"]) {
+    field-sizing: content;
+    max-block-size: calc(.875rem + var(--input-max-rows, 10lh));
+    min-block-size: calc(.875rem + var(--input-rows, 2lh));
+  }
+
+  &:is(select):not([multiple], [size]) {
+    background-image: url("quarterdeck/chevron-down-zinc-500.svg");
+    background-position: center right var(--size-2);
+    background-repeat: no-repeat;
+    background-size: var(--size-4) auto;
+  }
+
+  > option {
+    padding: revert;
+  }
+
+  &::file-selector-button {
+    font-weight: var(--font-medium);
+  }
+
+  &:user-invalid {
+    border-color: var(--color-text-negative);
+  }
+
+  &:user-invalid + [feedback] {
+    display: unset;
+  }
+
+  &:focus-visible {
+    outline: var(--input-outline-size, 2px) solid var(--color-selected-dark);
+  }
+
+  &:disabled {
+    cursor: not-allowed; opacity: var(--opacity-50);
+  }
+
+  .field_with_errors & {
+    border-color: var(--color-text-negative);
+  }
+}
+
+.input--actor {
+  > :is(input, textarea) {
+    field-sizing: inherit; flex-grow: 1; min-inline-size: 0; outline: 0; resize: none;
+  }
+
+  &:focus-within {
+    outline: var(--input-outline-size, 2px) solid var(--color-selected-dark);
+  }
+}
+
+/* ---- css-zero/pagination.css ---- */
+.pagination {
+  align-items: center;
+  column-gap: var(--size-1);
+  display: flex;
+}
+
+.pagination__button {
+  --btn-background: transparent;
+  --btn-border-color: transparent;
+  --btn-box-shadow: none;
+  --btn-cursor: pointer;
+
+  &[aria-current="page"] {
+    --btn-background: var(--color-surface);
+    --btn-border-color: var(--color-border);
+    --btn-box-shadow: var(--shadow-xs);
+  }
+}
+
+/* ---- css-zero/tabs.css ---- */
+.tabs {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--size-2);
+}
+
+.tabs__list {
+  align-self: start;
+  background-color: var(--color-border-light);
+  block-size: var(--size-8);
+  border-radius: var(--rounded-lg);
+  color: var(--color-text-subtle);
+  column-gap: var(--size-1);
+  display: inline-flex;
+  padding: var(--size-1);
+  position: relative;
+
+  &::before {
+    background-color: var(--color-bg);
+    border-radius: var(--rounded-lg);
+    box-shadow: var(--shadow-sm);
+    content: "";
+    inset: anchor(top) anchor(right) anchor(bottom) anchor(left);
+    position: absolute;
+    position-anchor: --tabs-selected;
+    transition-duration: var(--time-150);
+    transition-property: inset;
+    transition-timing-function: var(--ease-in-out-4);
+  }
+}
+
+.tabs__button {
+  --btn-background: transparent;
+  --btn-border-color: transparent;
+  --btn-box-shadow: none;
+  --btn-hover-color: transparent;
+
+  &[aria-selected="true"] {
+    anchor-name: --tabs-selected;
+  }
+
+  &[aria-current="page"] {
+    anchor-name: --tabs-selected;
+  }
+}
+
+/* ---- css-zero/alert.css ---- */
+.alert {
+  background-color: var(--alert-background, var(--color-surface));
+  border: 1px solid var(--alert-border-color, var(--color-border));
+  border-radius: var(--rounded-lg);
+  color: var(--alert-color, var(--color-text));
+  font-size: var(--text-sm);
+  inline-size: var(--size-full);
+  padding: var(--size-2) var(--size-2_5);
+}
+
+.alert--negative {
+  --alert-color: light-dark(var(--red-600), var(--red-400));
+}
+
+/* ---- css-zero/separator.css ---- */
+.separator {
+  background-color: var(--sep-color, var(--color-border));
+  block-size: 1px;
+  flex-shrink: 0;
+  inline-size: var(--size-full);
+}
+
+.separator-vertical {
+  align-self: stretch;
+  background-color: var(--sep-color, var(--color-border));
+  flex-shrink: 0;
+  inline-size: 1px;
+}
+
+/* ---- css-zero/skeleton.css ---- */
+.skeleton {
+  animation: var(--animate-blink);
+  animation-duration: 2s;
+  background-color: var(--color-border);
+  border-radius: var(--rounded-md);
+}
+
+/* ---- css-zero/list.css ---- */
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--list-gap, var(--size-4));
+}
+
+.list-row {
+  background-color: var(--list-background, transparent);
+  border: 1px solid var(--list-border-color, var(--color-border));
+  border-radius: var(--rounded-xl);
+  font-size: var(--text-sm);
+  padding: var(--list-padding, .625rem .75rem);
+}
+
+.list-row__media {
+  align-self: start;
+  block-size: var(--list-row-media-size, 2.5rem);
+  border-radius: var(--rounded-md);
+  flex-shrink: 0;
+  inline-size: var(--list-row-media-size, 2.5rem);
+  object-fit: cover;
+}
+
+.list-row--muted {
+  --list-background: rgb(from var(--color-border-light) r g b / .5);
+}
+
+.list-row--borderless {
+  --list-border-color: transparent;
+}
+
+.list-row--link:hover {
+  --list-background: rgb(from var(--color-border-light) r g b / .5);
+}
+
+.list-row--link:focus-visible {
+  outline: 2px solid var(--color-selected-dark);
+}
+
+.list-row--check:has(:checked) {
+  --list-background: rgb(from var(--color-border-light) r g b / .5);
+  --list-border-color: var(--color-primary);
+}
+
+/* ---- css-zero/flash.css ---- */
+.flash {
+  animation: flash-in-out 5s both;
+  animation-timing-function: var(--ease-out-3);
+  background-color: var(--color-surface);
+  border-radius: var(--rounded-lg);
+  border-width: var(--border);
+  box-shadow: var(--shadow-md);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  inline-size: var(--size-full);
+  margin: var(--flash-position, var(--size-6)) auto auto;
+  max-inline-size: calc(100% - 2rem);
+
+  &:is(:hover, :focus-within) {
+    animation-play-state: paused;
+  }
+
+  @media (width >= 40rem) {
+    max-inline-size: var(--flash-size, var(--max-i-sm));
+  }
+}
+
+.flash__content {
+  padding: var(--size-4);
+}
+
+.flash--extended {
+  animation-duration: 12s;
+  animation-name: flash-in-out-extended;
+}
+
+@keyframes flash-in-out {
+  0% {
+    opacity: 0; transform: translateY(-100%);
+  }
+
+  8%, 92% {
+    opacity: 1; transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0; transform: translateY(-100%);
+  }
+}
+
+@keyframes flash-in-out-extended {
+  0% {
+    opacity: 0; transform: translateY(-100%);
+  }
+
+  3.3%, 96.7% {
+    opacity: 1; transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0; transform: translateY(-100%);
+  }
+}
+
+/* ---- quarterdeck/dashboard.css ---- */
+/*
+ * Quarterdeck dashboard layout.
+ *
+ * Hand-written and linked after the vendored CSS Zero components. It only
+ * adds what CSS Zero intentionally does not ship (it removed grid utilities
+ * upstream), built entirely on CSS Zero variables so it follows the active
+ * theme and color scheme.
+ */
+
+.qd-stack {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--size-6);
+}
+
+.qd-grid {
+  display: grid;
+  gap: var(--size-4);
+}
+
+.qd-grid--stats,
+.qd-grid--2,
+.qd-grid--3 {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (width >= 40rem) {
+  .qd-grid--stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 64rem) {
+  .qd-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .qd-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Stat cards */
+
+.qd-stat {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--size-2);
+}
+
+.qd-stat__value {
+  align-items: baseline;
+  column-gap: var(--size-2);
+  display: flex;
+}
+
+/* Charts */
+
+.qd-chart-frame {
+  block-size: 16rem;
+  inline-size: var(--size-full);
+}
+
+.qd-chart-frame canvas {
+  block-size: 100%;
+  inline-size: 100%;
+}
+
+/* Tables */
+
+.qd-scroll {
+  overflow-x: auto;
+}
+
+.qd-truncate {
+  display: inline-block;
+  max-inline-size: 16rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+.qd-code {
+  background-color: var(--color-border-light);
+  border-radius: var(--rounded-sm);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs);
+  padding: 0 var(--size-1);
+}
+
+/* Tables rendered by the live Stimulus controller use the same padding as
+   the server-rendered `.table` component. */
+
+.qd-table-live td {
+  padding: var(--size-2);
+}
+
+/* Filters */
+
+.qd-filters {
+  align-items: end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-3);
+}
+
+.qd-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+}
+
+.qd-field--grow {
+  flex: 1 1 12rem;
+}
+
+.qd-field > label {
+  color: var(--color-text-subtle);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+}

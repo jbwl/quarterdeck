@@ -1,16 +1,15 @@
-<div class="space-y-6">
-  <!-- Stats -->
-  <div class="flex items-center justify-between mb-2">
-    <div></div>
+<div class="qd-stack">
+  <div class="flex items-center justify-end">
     <%= link_to "Export CSV", url_for(request.query_parameters.merge(format: :csv)),
-      class: "text-xs text-indigo-600 hover:text-indigo-800 font-medium" %>
+      class: "text-link text-xs" %>
   </div>
-  <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+
+  <div class="qd-grid qd-grid--stats">
     <%= render "quarterdeck/shared/stat_card", title: "Total Campaign Visits", value: @total_campaign_visits %>
   </div>
 
   <!-- UTM Breakdowns -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <div class="qd-grid qd-grid--2">
     <%= render "quarterdeck/shared/data_table", title: "Sources", label: "UTM Source", count_label: "Visits", data: @sources %>
     <%= render "quarterdeck/shared/data_table", title: "Mediums", label: "UTM Medium", count_label: "Visits", data: @mediums %>
     <%= render "quarterdeck/shared/data_table", title: "Campaigns", label: "UTM Campaign", count_label: "Visits", data: @campaigns %>
@@ -20,15 +19,19 @@
 
   <!-- Source Chart -->
   <% if @sources.any? %>
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <h3 class="text-sm font-semibold text-gray-900 mb-4">Top Sources</h3>
-      <div class="h-64">
-        <canvas
-          data-controller="chart"
-          data-chart-type-value="doughnut"
-          data-chart-labels-value="<%= @sources.keys.first(8).to_json %>"
-          data-chart-data-value="<%= @sources.values.first(8).to_json %>"
-        ></canvas>
+    <div class="card">
+      <h3 class="font-semibold text-sm mbe-4">Top Sources</h3>
+      <div class="qd-chart-frame">
+        <%= quarterdeck_chart type: "doughnut",
+          data: {
+            labels: @sources.keys.first(8),
+            datasets: [{
+              data: @sources.values.first(8),
+              backgroundColor: [ "#6366f1", "#818cf8", "#a5b4fc", "#c7d2fe", "#e0e7ff", "#4f46e5", "#4338ca", "#3730a3" ],
+              borderWidth: 0
+            }]
+          },
+          options: { plugins: { legend: { display: true } } } %>
       </div>
     </div>
   <% end %>
