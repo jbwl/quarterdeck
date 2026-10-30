@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe "Quarterdeck::Geographics", type: :request do
+RSpec.describe "Quarterdeck::CssZero::Geographics", type: :request do
   before do
-    Quarterdeck.instance_variable_set(:@authentication_block, nil)
+    Quarterdeck::CssZero.instance_variable_set(:@authentication_block, nil)
   end
 
   let!(:visit) do

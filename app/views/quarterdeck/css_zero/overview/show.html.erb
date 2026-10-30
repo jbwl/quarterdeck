@@ -1,0 +1,44 @@
+<div class="qcz-stack">
+  <!-- Stats -->
+  <div class="qcz-grid qcz-grid--stats">
+    <%= render "quarterdeck/css_zero/shared/stat_card", title: "Total Visits", value: @total_visits, previous_value: @prev_total_visits %>
+    <%= render "quarterdeck/css_zero/shared/stat_card", title: "Unique Visitors", value: @unique_visitors, previous_value: @prev_unique_visitors %>
+    <%= render "quarterdeck/css_zero/shared/stat_card", title: "Total Events", value: @total_events, previous_value: @prev_total_events %>
+  </div>
+
+  <!-- Daily Visits Chart -->
+  <div class="card">
+    <div class="flex items-center justify-between mbe-4">
+      <h3 class="font-semibold text-sm">Visits Over Time</h3>
+      <%= link_to "Export CSV", url_for(request.query_parameters.merge(format: :csv)),
+        class: "text-link text-xs" %>
+    </div>
+    <div class="qcz-chart-frame">
+      <%= quarterdeck_chart type: "line",
+        data: {
+          labels: @daily_visits.keys.map { |d| d.strftime("%b %d") },
+          datasets: [{
+            label: "Visits",
+            data: @daily_visits.values,
+            borderColor: "#6366f1",
+            backgroundColor: "rgba(99, 102, 241, 0.1)",
+            fill: true,
+            borderWidth: 2
+          }]
+        },
+        options: { scales: { y: { beginAtZero: true } } } %>
+    </div>
+  </div>
+
+  <!-- Two Column Grid -->
+  <div class="qcz-grid qcz-grid--2">
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Top Pages", label: "Page", count_label: "Views", data: @top_pages %>
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Top Referrers", label: "Referrer", count_label: "Visits", data: @top_referrers %>
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Browsers", label: "Browser", count_label: "Visits", data: @browsers %>
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Devices", label: "Device", count_label: "Visits", data: @devices %>
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Operating Systems", label: "OS", count_label: "Visits", data: @os %>
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Countries", label: "Country", count_label: "Visits", data: @countries %>
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Top Events", label: "Event", count_label: "Count", data: @top_events %>
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Campaigns", label: "Source", count_label: "Visits", data: @campaigns %>
+  </div>
+</div>

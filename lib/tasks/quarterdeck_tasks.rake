@@ -1,7 +1,7 @@
 require "fileutils"
 
-namespace :quarterdeck do
-  desc "Regenerate app/assets/stylesheets/quarterdeck.css from the installed css-zero gem"
+namespace :quarterdeck_css_zero do
+  desc "Regenerate app/assets/stylesheets/quarterdeck-csszero.css from the installed css-zero gem"
   task :update_css_zero do
     root = File.expand_path("../..", __dir__)
     gem_dir = Gem::Specification.find_by_name("css-zero").gem_dir
@@ -14,15 +14,15 @@ namespace :quarterdeck do
 
     output = +""
     output << "/*\n"
-    output << " * Quarterdeck stylesheet.\n"
+    output << " * Quarterdeck CssZero stylesheet.\n"
     output << " *\n"
     output << " * The section below is vendored verbatim from the CSS Zero gem (v#{version})\n"
     output << " * so the engine is self-contained and never depends on styles the host app\n"
     output << " * may or may not have copied in via `css_zero:add`.\n"
     output << " *\n"
-    output << " * Regenerate with: bundle exec rake quarterdeck:update_css_zero\n"
+    output << " * Regenerate with: bundle exec rake quarterdeck_css_zero:update_css_zero\n"
     output << " * Do not edit the vendored section by hand; edit\n"
-    output << " * app/assets/stylesheets/quarterdeck/dashboard.css instead.\n"
+    output << " * app/assets/stylesheets/quarterdeck-csszero/dashboard.css instead.\n"
     output << " */\n\n"
 
     # The semantic design tokens (`--color-*`) and base element styles live in
@@ -31,33 +31,33 @@ namespace :quarterdeck do
       output << "/* ---- css-zero/base.css (install template) ---- */\n"
       output << File.read(base_css).strip << "\n\n"
     else
-      warn "quarterdeck: missing css-zero install base.css"
+      warn "quarterdeck_css_zero: missing css-zero install base.css"
     end
 
     components.each do |component|
       path = File.join(templates, "#{component}.css")
       unless File.exist?(path)
-        warn "quarterdeck: missing component stylesheet #{component}.css in css-zero #{version}"
+        warn "quarterdeck_css_zero: missing component stylesheet #{component}.css in css-zero #{version}"
         next
       end
 
       body = File.read(path)
       # Image references are resolved relative to this stylesheet, so point
       # them at the images vendored into the engine.
-      body = body.gsub('url("loading.svg")', 'url("quarterdeck/loading.svg")')
-      body = body.gsub('url("chevron-down-zinc-500.svg")', 'url("quarterdeck/chevron-down-zinc-500.svg")')
+      body = body.gsub('url("loading.svg")', 'url("quarterdeck-csszero/loading.svg")')
+      body = body.gsub('url("chevron-down-zinc-500.svg")', 'url("quarterdeck-csszero/chevron-down-zinc-500.svg")')
 
       output << "/* ---- css-zero/#{component}.css ---- */\n"
       output << body.strip << "\n\n"
     end
 
-    dashboard = File.join(root, "app/assets/stylesheets/quarterdeck/dashboard.css")
+    dashboard = File.join(root, "app/assets/stylesheets/quarterdeck-csszero/dashboard.css")
     if File.exist?(dashboard)
-      output << "/* ---- quarterdeck/dashboard.css ---- */\n"
+      output << "/* ---- quarterdeck-csszero/dashboard.css ---- */\n"
       output << File.read(dashboard).strip << "\n"
     end
 
-    target = File.join(root, "app/assets/stylesheets/quarterdeck.css")
+    target = File.join(root, "app/assets/stylesheets/quarterdeck-csszero.css")
     FileUtils.mkdir_p(File.dirname(target))
     File.write(target, output)
     puts "Wrote #{target} (#{components.size} css-zero components, css-zero v#{version})"

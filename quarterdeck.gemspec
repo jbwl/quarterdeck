@@ -1,8 +1,8 @@
-require_relative "lib/quarterdeck/version"
+require_relative "lib/quarterdeck/css_zero/version"
 
 Gem::Specification.new do |spec|
   spec.name        = "quarterdeck-csszero"
-  spec.version     = Quarterdeck::VERSION
+  spec.version     = Quarterdeck::CssZero::VERSION
   spec.authors     = [ "BL", "leopolicastro" ]
   spec.email       = [ "mercies.latter-8w@icloud.com", "43428385+leopolicastro@users.noreply.github.com" ]
   spec.homepage    = "https://github.com/jbwl/quarterdeck"

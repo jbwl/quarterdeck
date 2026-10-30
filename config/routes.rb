@@ -1,4 +1,4 @@
-Quarterdeck::Engine.routes.draw do
+Quarterdeck::CssZero::Engine.routes.draw do
   root to: "overview#show"
   resources :visits, only: [ :index, :show ]
   resources :events, only: [ :index ]

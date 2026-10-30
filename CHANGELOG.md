@@ -15,7 +15,7 @@ Renamed the gem to `quarterdeck-csszero` and made the engine fully self-containe
 - **Dependencies**: require `pagy >= 43` (the code uses `Pagy::Method`), declare
   `ahoy_matey`, add `css-zero`, `importmap-rails` and `stimulus-rails`.
 - Removed the date-range Stimulus controller in favour of a plain GET form.
-- Added `rake quarterdeck:update_css_zero` to regenerate the vendored component
+- Added `rake quarterdeck_css_zero:update_css_zero` to regenerate the vendored component
   styles on `css-zero` version bumps.
 
 ## 0.1.0

@@ -1,0 +1,27 @@
+<div class="card">
+  <h3 class="font-semibold text-sm mbe-3"><%= title %></h3>
+  <div class="qcz-scroll">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><%= label %></th>
+          <th class="text-end"><%= count_label || "Count" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if data.any? %>
+          <% data.each do |key, count| %>
+            <tr>
+              <td><%= key.presence || "(none)" %></td>
+              <td class="text-end"><%= number_with_delimiter(count) %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="2" class="text-center text-subtle">No data for this period</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

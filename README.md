@@ -40,7 +40,7 @@ Run the install generator:
 
 ```bash
 bundle install
-rails generate quarterdeck:install
+rails generate quarterdeck:css_zero:install
 ```
 
 This will:
@@ -52,7 +52,7 @@ Or set up manually:
 
 ```ruby
 # config/routes.rb
-mount Quarterdeck::Engine => "/analytics"
+mount Quarterdeck::CssZero::Engine => "/analytics"
 ```
 
 That's it — no layout, stylesheet or JavaScript changes are required.
@@ -63,7 +63,7 @@ That's it — no layout, stylesheet or JavaScript changes are required.
 # config/initializers/quarterdeck.rb
 
 # Require authentication (optional)
-Quarterdeck.authenticate_with do
+Quarterdeck::CssZero.authenticate_with do
   redirect_to main_app.root_path unless current_user&.admin?
 end
 ```
@@ -98,11 +98,11 @@ date range.
 When you bump the `css-zero` dependency, regenerate the vendored styles:
 
 ```bash
-bundle exec rake quarterdeck:update_css_zero
+bundle exec rake quarterdeck_css_zero:update_css_zero
 ```
 
-Do not edit `app/assets/stylesheets/quarterdeck.css` by hand; edit
-`app/assets/stylesheets/quarterdeck/dashboard.css` and regenerate.
+Do not edit `app/assets/stylesheets/quarterdeck-csszero.css` by hand; edit
+`app/assets/stylesheets/quarterdeck-csszero/dashboard.css` and regenerate.
 
 ## Development
 

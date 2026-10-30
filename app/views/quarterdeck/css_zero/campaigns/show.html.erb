@@ -1,0 +1,38 @@
+<div class="qcz-stack">
+  <div class="flex items-center justify-end">
+    <%= link_to "Export CSV", url_for(request.query_parameters.merge(format: :csv)),
+      class: "text-link text-xs" %>
+  </div>
+
+  <div class="qcz-grid qcz-grid--stats">
+    <%= render "quarterdeck/css_zero/shared/stat_card", title: "Total Campaign Visits", value: @total_campaign_visits %>
+  </div>
+
+  <!-- UTM Breakdowns -->
+  <div class="qcz-grid qcz-grid--2">
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Sources", label: "UTM Source", count_label: "Visits", data: @sources %>
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Mediums", label: "UTM Medium", count_label: "Visits", data: @mediums %>
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Campaigns", label: "UTM Campaign", count_label: "Visits", data: @campaigns %>
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Terms", label: "UTM Term", count_label: "Visits", data: @terms %>
+    <%= render "quarterdeck/css_zero/shared/data_table", title: "Content", label: "UTM Content", count_label: "Visits", data: @contents %>
+  </div>
+
+  <!-- Source Chart -->
+  <% if @sources.any? %>
+    <div class="card">
+      <h3 class="font-semibold text-sm mbe-4">Top Sources</h3>
+      <div class="qcz-chart-frame">
+        <%= quarterdeck_chart type: "doughnut",
+          data: {
+            labels: @sources.keys.first(8),
+            datasets: [{
+              data: @sources.values.first(8),
+              backgroundColor: [ "#6366f1", "#818cf8", "#a5b4fc", "#c7d2fe", "#e0e7ff", "#4f46e5", "#4338ca", "#3730a3" ],
+              borderWidth: 0
+            }]
+          },
+          options: { plugins: { legend: { display: true } } } %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,64 @@
+<div class="qcz-stack">
+  <div>
+    <%= link_to "&larr; Back to Visits".html_safe, quarterdeck_css_zero.visits_path, class: "text-link text-sm" %>
+  </div>
+
+  <!-- Visit Details -->
+  <div class="card">
+    <h3 class="font-semibold text-lg mbe-4">Visit Details</h3>
+    <dl class="qcz-grid qcz-grid--3">
+      <% details = {
+        "Started" => @visit.started_at&.strftime("%b %d, %Y %H:%M:%S"),
+        "Landing Page" => @visit.landing_page,
+        "Referring Domain" => @visit.referring_domain,
+        "Browser" => @visit.browser,
+        "OS" => @visit.os,
+        "Device" => @visit.device_type,
+        "Country" => @visit.country,
+        "Region" => @visit.region,
+        "City" => @visit.city,
+        "UTM Source" => @visit.utm_source,
+        "UTM Medium" => @visit.utm_medium,
+        "UTM Campaign" => @visit.utm_campaign,
+        "UTM Term" => @visit.utm_term,
+        "UTM Content" => @visit.utm_content,
+        "IP" => @visit.ip
+      } %>
+      <% details.each do |label, val| %>
+        <div>
+          <dt class="text-xs uppercase text-subtle font-medium"><%= label %></dt>
+          <dd class="text-sm"><%= val.presence || "-" %></dd>
+        </div>
+      <% end %>
+    </dl>
+  </div>
+
+  <!-- Events -->
+  <div class="card">
+    <h3 class="font-semibold text-sm mbe-3">Events (<%= @events.count %>)</h3>
+    <div class="qcz-scroll">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Name</th>
+            <th>Properties</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @events.each do |event| %>
+            <tr>
+              <td class="whitespace-nowrap"><%= event.time.strftime("%H:%M:%S") %></td>
+              <td><span class="badge"><%= event.name %></span></td>
+              <td>
+                <% if event.properties.present? %>
+                  <code class="qcz-code"><%= event.properties.to_json %></code>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

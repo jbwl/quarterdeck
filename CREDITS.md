@@ -18,7 +18,7 @@ vendored Chart.js, and fixed the PostgreSQL grouping bug on the Events page.
 ## Third-party
 
 - [CSS Zero](https://github.com/lazaronixon/css-zero) by lazaronixon (MIT) — the
-  component styles vendored into `app/assets/stylesheets/quarterdeck.css`.
+  component styles vendored into `app/assets/stylesheets/quarterdeck-csszero.css`.
 - [Chart.js](https://www.chartjs.org) (MIT) — vendored at
   `app/javascript/quarterdeck/vendor/chart.umd.min.js`.
 - [ahoy_matey](https://github.com/ankane/ahoy) by ankane (MIT).

@@ -1,0 +1,17 @@
+<%
+  nav_items = [
+    { name: "Overview", path: quarterdeck_css_zero.root_path, active: controller_name == "overview" },
+    { name: "Visits", path: quarterdeck_css_zero.visits_path, active: controller_name == "visits" },
+    { name: "Events", path: quarterdeck_css_zero.events_path, active: controller_name == "events" },
+    { name: "Campaigns", path: quarterdeck_css_zero.campaigns_path, active: controller_name == "campaigns" },
+    { name: "Geographic", path: quarterdeck_css_zero.geographic_path, active: controller_name == "geographics" },
+    { name: "Live", path: quarterdeck_css_zero.live_path, active: controller_name == "live" }
+  ]
+%>
+<nav class="tabs__list" aria-label="Analytics sections">
+  <% nav_items.each do |item| %>
+    <%= link_to item[:name], item[:path],
+      class: "btn tabs__button",
+      "aria-current": (item[:active] ? "page" : nil) %>
+  <% end %>
+</nav>

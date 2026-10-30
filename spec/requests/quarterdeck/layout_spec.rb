@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Quarterdeck self-contained layout", type: :request do
   before do
-    Quarterdeck.instance_variable_set(:@authentication_block, nil)
+    Quarterdeck::CssZero.instance_variable_set(:@authentication_block, nil)
   end
 
   let!(:visit) do
@@ -29,7 +29,7 @@ RSpec.describe "Quarterdeck self-contained layout", type: :request do
   it "loads the engine's own importmap entrypoint" do
     get "/analytics"
     expect(response.body).to include(%(type="importmap"))
-    expect(response.body).to include("quarterdeck/application")
+    expect(response.body).to include("quarterdeck-csszero/application")
   end
 
   it "uses no CDN assets" do

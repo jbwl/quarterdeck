@@ -1,0 +1,16 @@
+<div class="card qcz-stat">
+  <div class="text-sm text-subtle"><%= title %></div>
+  <div class="qcz-stat__value">
+    <span class="text-3xl font-bold"><%= number_with_delimiter(value) %></span>
+    <% if local_assigns[:previous_value] && previous_value && previous_value > 0 %>
+      <% change = ((value - previous_value).to_f / previous_value * 100).round(1) %>
+      <% if change > 0 %>
+        <span class="badge badge--primary"><%= change %>%</span>
+      <% elsif change < 0 %>
+        <span class="badge badge--negative"><%= change.abs %>%</span>
+      <% else %>
+        <span class="badge">&mdash;</span>
+      <% end %>
+    <% end %>
+  </div>
+</div>

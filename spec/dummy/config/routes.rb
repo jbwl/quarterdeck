@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Quarterdeck::Engine => "/analytics"
+  mount Quarterdeck::CssZero::Engine => "/analytics"
 end

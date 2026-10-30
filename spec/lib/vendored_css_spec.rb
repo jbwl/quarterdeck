@@ -4,7 +4,7 @@ require "spec_helper"
 # must carry the CSS Zero design tokens and components it uses, and must not
 # reference any remote URL.
 RSpec.describe "vendored quarterdeck.css" do
-  let(:css) { File.read(File.expand_path("../../app/assets/stylesheets/quarterdeck.css", __dir__)) }
+  let(:css) { File.read(File.expand_path("../../app/assets/stylesheets/quarterdeck-csszero.css", __dir__)) }
 
   it "includes the CSS Zero design tokens" do
     expect(css).to include("--color-bg:")

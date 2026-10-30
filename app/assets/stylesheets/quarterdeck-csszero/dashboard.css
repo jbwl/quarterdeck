@@ -1,0 +1,122 @@
+/*
+ * Quarterdeck dashboard layout.
+ *
+ * Hand-written and linked after the vendored CSS Zero components. It only
+ * adds what CSS Zero intentionally does not ship (it removed grid utilities
+ * upstream), built entirely on CSS Zero variables so it follows the active
+ * theme and color scheme.
+ */
+
+.qcz-stack {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--size-6);
+}
+
+.qcz-grid {
+  display: grid;
+  gap: var(--size-4);
+}
+
+.qcz-grid--stats,
+.qcz-grid--2,
+.qcz-grid--3 {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (width >= 40rem) {
+  .qcz-grid--stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 64rem) {
+  .qcz-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .qcz-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Stat cards */
+
+.qcz-stat {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--size-2);
+}
+
+.qcz-stat__value {
+  align-items: baseline;
+  column-gap: var(--size-2);
+  display: flex;
+}
+
+/* Charts */
+
+.qcz-chart-frame {
+  block-size: 16rem;
+  inline-size: var(--size-full);
+}
+
+.qcz-chart-frame canvas {
+  block-size: 100%;
+  inline-size: 100%;
+}
+
+/* Tables */
+
+.qcz-scroll {
+  overflow-x: auto;
+}
+
+.qcz-truncate {
+  display: inline-block;
+  max-inline-size: 16rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+.qcz-code {
+  background-color: var(--color-border-light);
+  border-radius: var(--rounded-sm);
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-xs);
+  padding: 0 var(--size-1);
+}
+
+/* Tables rendered by the live Stimulus controller use the same padding as
+   the server-rendered `.table` component. */
+
+.qcz-table-live td {
+  padding: var(--size-2);
+}
+
+/* Filters */
+
+.qcz-filters {
+  align-items: end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-3);
+}
+
+.qcz-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+}
+
+.qcz-field--grow {
+  flex: 1 1 12rem;
+}
+
+.qcz-field > label {
+  color: var(--color-text-subtle);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+}
