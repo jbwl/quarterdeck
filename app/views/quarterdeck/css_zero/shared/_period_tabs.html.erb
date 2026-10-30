@@ -6,7 +6,7 @@
     { label: "90 days", value: "90d" }
   ]
 %>
-<div class="flex flex-wrap items-center gap">
+<div class="card flex flex-wrap items-center gap p-2">
   <div class="tabs__list">
     <% periods.each do |p| %>
       <% active = period == p[:value] %>
@@ -20,14 +20,14 @@
     <% end %>
   </div>
 
-  <%= form_tag request.path, method: :get, class: "flex flex-wrap items-center gap" do %>
+  <%= form_tag request.path, method: :get, class: "flex flex-wrap items-center gap mis-auto" do %>
     <% request.query_parameters.except("period", "start_date", "end_date", "page").each do |key, value| %>
       <%= hidden_field_tag key, value %>
     <% end %>
     <%= hidden_field_tag :period, "custom" %>
-    <%= date_field_tag :start_date, params[:start_date], class: "input" %>
+    <%= date_field_tag :start_date, params[:start_date], class: "input qcz-input", aria: { label: "Start date" } %>
     <span class="text-subtle text-sm">to</span>
-    <%= date_field_tag :end_date, params[:end_date], class: "input" %>
-    <%= submit_tag "Apply", class: "btn" %>
+    <%= date_field_tag :end_date, params[:end_date], class: "input qcz-input", aria: { label: "End date" } %>
+    <%= submit_tag "Apply", class: "btn btn--secondary" %>
   <% end %>
 </div>

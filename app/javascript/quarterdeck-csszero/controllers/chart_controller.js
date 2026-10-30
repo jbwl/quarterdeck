@@ -24,6 +24,7 @@ export default class extends Controller {
     Chart.defaults.elements.point.radius = 0
     Chart.defaults.font.family = style.fontFamily
     Chart.defaults.font.size = 12
+    Chart.defaults.maintainAspectRatio = false
     Chart.defaults.interaction.intersect = false
     Chart.defaults.plugins.legend.display = false
     Chart.defaults.plugins.legend.labels.usePointStyle = true

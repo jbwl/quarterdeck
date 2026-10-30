@@ -10,7 +10,7 @@ namespace :quarterdeck_css_zero do
     version = Gem::Specification.find_by_name("css-zero").version
 
     # Components Quarterdeck renders with. Keep in sync with the views.
-    components = %w[card table badge button input pagination tabs alert separator skeleton list flash sheet sidebar_menu]
+    components = %w[layouts card table badge button input pagination tabs alert separator skeleton list flash sheet sidebar_menu]
 
     output = +""
     output << "/*\n"

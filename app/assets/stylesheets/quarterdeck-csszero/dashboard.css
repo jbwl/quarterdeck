@@ -98,6 +98,10 @@
 
 /* Filters */
 
+.qcz-input {
+  --input-inline-size: auto;
+}
+
 .qcz-filters {
   align-items: end;
   display: flex;
