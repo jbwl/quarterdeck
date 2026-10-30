@@ -15,6 +15,8 @@ Added a **Top Events** page (`/analytics/top_events`).
   export.
 - **Back to app**: the header links back to the host application's root
   (`main_app.root_path`).
+- **No engine branding**: the header wordmark and page title now show the host
+  application's `SITE_TITLE`, falling back to `analytics`.
 
 ## 1.0.0
 

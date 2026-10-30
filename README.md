@@ -71,6 +71,10 @@ end
 The header links back to your application with `main_app.root_path`, so your app
 needs a root route.
 
+The dashboard is named after your application: the header wordmark and the page
+title use your `SITE_TITLE` environment variable, falling back to `analytics`.
+The engine does not put its own name in the UI.
+
 ## Pages
 
 | Path | Description |

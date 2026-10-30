@@ -49,6 +49,38 @@ RSpec.describe "Quarterdeck self-contained layout", type: :request do
     expect(response.body).to include(%(href="/">Back to app</a>))
   end
 
+  describe "the dashboard name" do
+    around do |example|
+      original = ENV["SITE_TITLE"]
+      example.run
+    ensure
+      ENV["SITE_TITLE"] = original
+    end
+
+    it "uses the host application's SITE_TITLE" do
+      ENV["SITE_TITLE"] = "My Shop"
+
+      get "/analytics"
+
+      expect(response.body).to include(%(<span class="font-bold">My Shop</span>))
+      expect(response.body).to include("<title>My Shop</title>")
+    end
+
+    it "falls back to analytics" do
+      ENV["SITE_TITLE"] = nil
+
+      get "/analytics"
+
+      expect(response.body).to include(%(<span class="font-bold">analytics</span>))
+      expect(response.body).to include("<title>analytics</title>")
+    end
+
+    it "does not brand the page with the engine's name" do
+      get "/analytics"
+      expect(response.body).not_to include(">Quarterdeck<")
+    end
+  end
+
   it "uses the header layout with a desktop header menu and a mobile sheet menu" do
     get "/analytics"
     expect(response.body).to include(%(<body class="header-layout">))

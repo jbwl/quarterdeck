@@ -16,6 +16,12 @@ module Quarterdeck::CssZero
       )
     end
 
+    # The name the dashboard goes by: the host application's SITE_TITLE, so the
+    # engine does not brand itself. Used for the header wordmark and page title.
+    def quarterdeck_site_title
+      ENV["SITE_TITLE"].presence || "analytics"
+    end
+
     # The dashboard's sections, shared by the desktop header menu and the
     # mobile sheet menu. Marks the current section active.
     def quarterdeck_sections
